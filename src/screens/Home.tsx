@@ -5,12 +5,14 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
+  Alert,
   ScrollView,
 } from 'react-native';
 import { BarChart } from 'react-native-gifted-charts';
 import { rf, rh, rw } from '../utils/responsive';
 import { images } from '../utils/images';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { barData, stackData } from '../utils/dummyData';
 
 const LegendComponent = ({
   color,
@@ -26,144 +28,36 @@ const LegendComponent = ({
 );
 
 const Home = ({ navigation }: any) => {
-  const a = ['Reports', 'Trainings', 'Performance'];
-  const b = ['1D', '1M', '3M', '6M', '12M', 'YTD'];
+  const tags = ['Reports', 'Trainings', 'Performance'];
+  const time = ['1D', '1M', '3M', '6M', '12M', 'YTD'];
   const [category, setCategory] = useState<string>('Reports');
   const [tag, setTag] = useState('1D');
 
-  const barData = [
-    { value: 567, label: 'Unsafe Condition', frontColor: '#E85959' },
-    { value: 500, label: 'Near Miss', frontColor: '#F3A341' },
-    { value: 745, label: 'Unsafe Act', frontColor: '#9260D3' },
-    { value: 320, label: 'Incident', frontColor: '#02B2C3' },
-    { value: 600, label: 'Positive Finding', frontColor: '#005EFF' },
-  ];
+  const pointerLabelComponent = (item: any) => {
+    console.log(item);
 
-  const stackData = [
-    {
-      stacks: [
-        { value: 30, color: '#0098A7' },
-        { value: 20, color: '#ED1C24', marginBottom: 2 },
-        { value: 40, color: '#F08400', marginBottom: 2 },
-        { value: 20, color: '#6976EB', marginBottom: 2 },
-        { value: 50, color: '#005EFF', marginBottom: 2 },
-      ],
-      label: '01/24',
-    },
-    {
-      stacks: [
-        { value: 40, color: '#0098A7' },
-        { value: 10, color: '#ED1C24', marginBottom: 2 },
-        { value: 30, color: '#F08400', marginBottom: 2 },
-        { value: 30, color: '#6976EB', marginBottom: 2 },
-        { value: 45, color: '#005EFF', marginBottom: 2 },
-      ],
-      label: '02/24',
-    },
-    {
-      stacks: [
-        { value: 30, color: '#0098A7' },
-        { value: 5, color: '#ED1C24', marginBottom: 2 },
-        { value: 20, color: '#F08400', marginBottom: 2 },
-        { value: 40, color: '#6976EB', marginBottom: 2 },
-        { value: 35, color: '#005EFF', marginBottom: 2 },
-      ],
-      label: '03/24',
-    },
-    {
-      stacks: [
-        { value: 45, color: '#0098A7' },
-        { value: 15, color: '#ED1C24', marginBottom: 2 },
-        { value: 30, color: '#F08400', marginBottom: 2 },
-        { value: 15, color: '#6976EB', marginBottom: 2 },
-        { value: 45, color: '#005EFF', marginBottom: 2 },
-      ],
-      label: '04/24',
-    },
-    {
-      stacks: [
-        { value: 30, color: '#0098A7' },
-        { value: 5, color: '#ED1C24' },
-        { value: 20, color: '#F08400' },
-        { value: 40, color: '#6976EB' },
-        { value: 35, color: '#005EFF' },
-      ],
-      label: '05/24',
-    },
-    {
-      stacks: [
-        { value: 30, color: '#0098A7' },
-        { value: 20, color: '#ED1C24' },
-        { value: 20, color: '#F08400' },
-        { value: 35, color: '#6976EB' },
-        { value: 40, color: '#005EFF' },
-      ],
-      label: '06/24',
-    },
-    {
-      stacks: [
-        { value: 30, color: '#0098A7' },
-        { value: 20, color: '#ED1C24' },
-        { value: 35, color: '#F08400' },
-        { value: 35, color: '#6976EB' },
-        { value: 50, color: '#005EFF' },
-      ],
-      label: '07/24',
-    },
-    {
-      stacks: [
-        { value: 40, color: '#0098A7' },
-        { value: 15, color: '#ED1C24' },
-        { value: 20, color: '#F08400' },
-        { value: 25, color: '#6976EB' },
-        { value: 35, color: '#005EFF' },
-      ],
-      label: '08/24',
-    },
-    {
-      stacks: [
-        { value: 30, color: '#0098A7' },
-        { value: 5, color: '#ED1C24' },
-        { value: 20, color: '#F08400' },
-        { value: 40, color: '#6976EB' },
-        { value: 35, color: '#005EFF' },
-      ],
-      label: '09/24',
-    },
-    {
-      stacks: [
-        { value: 30, color: '#0098A7' },
-        { value: 20, color: '#ED1C24' },
-        { value: 40, color: '#F08400' },
-        { value: 20, color: '#6976EB' },
-        { value: 50, color: '#005EFF' },
-      ],
-      label: '10/24',
-    },
-    {
-      stacks: [
-        { value: 30, color: '#0098A7' },
-        { value: 20, color: '#ED1C24' },
-        { value: 20, color: '#F08400' },
-        { value: 35, color: '#6976EB' },
-        { value: 40, color: '#005EFF' },
-      ],
-      label: '11/24',
-    },
-    {
-      stacks: [
-        { value: 45, color: '#0098A7' },
-        { value: 15, color: '#ED1C24' },
-        { value: 30, color: '#F08400' },
-        { value: 15, color: '#6976EB' },
-        { value: 45, color: '#005EFF' },
-      ],
-      label: '12/24',
-    },
-  ];
+    return (
+      <View
+        style={{
+          backgroundColor: 'white',
+          padding: 5,
+          borderRadius: 5,
+          elevation: 5,
+          width: rw(150),
+        }}
+      >
+        <Text style={{ color: '#000000' }}>{`Value: ${
+          item[0].stacks.map((i: any) => i.value) || 'N/A'
+        }`}</Text>
+        <Text style={{ color: '#000000' }}>{`Label: ${
+          item[0]?.label || 'N/A'
+        }`}</Text>
+      </View>
+    );
+  };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.headerView}>
         <Image source={images.menu} style={styles.menu} resizeMode="contain" />
 
@@ -175,123 +69,133 @@ const Home = ({ navigation }: any) => {
           resizeMode="contain"
         />
       </View>
-
-      <View style={styles.textView}>
-        <Text style={styles.shipWorksText}>Shipworksz Marine services LLC</Text>
-      </View>
-
-      <TouchableOpacity style={styles.UP43023KBView}>
-        <Text style={styles.UP43023KBText}>UP43023KB</Text>
-        <Image source={images.vector} style={styles.vectorImage} />
-      </TouchableOpacity>
-
-      <View style={styles.categoryView}>
-        {a.map(i => {
-          return (
-            <>
+      <ScrollView>
+        <View style={styles.textView}>
+          <Text style={styles.shipWorksText}>
+            Shipworksz Marine services LLC
+          </Text>
+        </View>
+        <TouchableOpacity style={styles.UP43023KBView}>
+          <Text style={styles.UP43023KBText}>UP43023KB</Text>
+          <Image source={images.vector} style={styles.vectorImage} />
+        </TouchableOpacity>
+        <View style={styles.categoryView}>
+          {tags.map(i => {
+            return (
+              <>
+                <TouchableOpacity
+                  style={[
+                    styles.categoryTextView,
+                    {
+                      backgroundColor: category === i ? '#005EFF' : '#FFFFFF',
+                    },
+                  ]}
+                  onPress={() => setCategory(i)}
+                >
+                  <Text
+                    style={[
+                      styles.categoryText,
+                      {
+                        color: category === i ? '#FFFFFF' : '#727373',
+                      },
+                    ]}
+                  >
+                    {i}
+                  </Text>
+                </TouchableOpacity>
+              </>
+            );
+          })}
+        </View>
+        <View style={styles.tagView}>
+          {time.map(i => {
+            const isSelected = tag === i;
+            return (
               <TouchableOpacity
-                style={{
-                  borderRadius: rw(8),
-                  backgroundColor: category === i ? '#005EFF' : '#FFFFFF',
-                }}
-                onPress={() => setCategory(i)}
+                style={[
+                  styles.tagInnerView,
+                  {
+                    backgroundColor: isSelected ? '#005EFF' : '#FFFFFF',
+                  },
+                ]}
+                onPress={() => setTag(i)}
               >
                 <Text
                   style={[
-                    styles.categoryText,
+                    styles.tagText,
                     {
-                      color: category === i ? '#FFFFFF' : '#727373',
+                      color: isSelected ? '#FFFFFF' : '#000000',
+                      fontWeight: isSelected ? 700 : 500,
+                      fontSize: isSelected ? 13 : 12,
                     },
                   ]}
                 >
                   {i}
                 </Text>
               </TouchableOpacity>
-            </>
-          );
-        })}
-      </View>
-
-      <View style={styles.tagView}>
-        {b.map(i => {
-          const isSelected = tag === i;
-          return (
-            <TouchableOpacity
-              style={[
-                styles.tagInnerView,
-                {
-                  backgroundColor: isSelected ? '#005EFF' : '#FFFFFF',
-                },
-              ]}
-              onPress={() => setTag(i)}
-            >
-              <Text
-                style={[
-                  styles.tagText,
-                  isSelected ? styles.selectedText : styles.unSelectedTest,
-                  {
-                    color: isSelected ? '#FFFFFF' : '#000000',
-                    fontWeight: isSelected ? 700 : 500,
-                    fontSize: isSelected ? 13 : 12,
-                  },
-                ]}
-              >
-                {i}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
-      </View>
-
-      <View style={styles.reportsView}>
-        <View style={styles.reportsImageView}>
-          <Image
-            source={images.report}
-            style={styles.reportImage}
-            resizeMode="contain"
-          />
+            );
+          })}
         </View>
-        <Text style={styles.reportText}>
-          Total Reports: <Text style={{ color: '#357BF3' }}>29</Text>
-        </Text>
-      </View>
-      <View style={styles.barChartView}>
-        <BarChart
-          width={360}
-          rotateLabel
-          barWidth={7}
-          spacing={15}
-          noOfSections={4}
-          barBorderRadius={5}
-          stackData={stackData}
-          yAxisThickness={0}
-          xAxisThickness={0}
-          xAxisLabelTextStyle={{
-            color: '#757575',
-            fontSize: rf(10),
-            transform: [{ rotate: '240deg' }],
-            width: rw(27),
-          }}
-          // xAxisTextNumberOfLines={1}
-          showVerticalLines={false}
-        />
-
-        <View style={styles.legendContainer}>
-          {barData.map((item, index) => (
-            <LegendComponent
-              key={index}
-              color={item.frontColor}
-              label={item.label}
+        <View style={styles.reportsView}>
+          <View style={styles.reportsImageView}>
+            <Image
+              source={images.report}
+              style={styles.reportImage}
+              resizeMode="contain"
             />
-          ))}
+          </View>
+          <Text style={styles.reportText}>
+            Total Reports: <Text style={{ color: '#357BF3' }}>29</Text>
+          </Text>
         </View>
-      </View>
-      <TouchableOpacity
-        style={styles.reportsButtonView}
-        onPress={() => navigation.navigate('Reports')}
-      >
-        <Text style={styles.reportsText}>View Reports</Text>
-      </TouchableOpacity>
+        <View style={styles.barChartView}>
+          <BarChart
+            width={360}
+            rotateLabel
+            barWidth={7}
+            // onPress={(item, index) => {
+            //   console.log('Pressed: ', item, index);
+            // }}
+            spacing={15}
+            noOfSections={4}
+            barBorderRadius={5}
+            stackData={stackData}
+            yAxisThickness={0}
+            xAxisThickness={0}
+            xAxisLabelTextStyle={{
+              color: '#757575',
+              fontSize: rf(10),
+              transform: [{ rotate: '240deg' }],
+              width: rw(27),
+            }}
+            height={200}
+            // renderTooltip={pointerLabelComponent}
+            initialSpacing={10}
+            showVerticalLines={false}
+            dashWidth={0}
+            pointerConfig={{
+              pointerLabelComponent: pointerLabelComponent,
+            }}
+          />
+
+          <View style={styles.legendContainer}>
+            {barData.map((item, index) => (
+              <LegendComponent
+                key={index}
+                color={item.frontColor}
+                label={item.label}
+              />
+            ))}
+          </View>
+        </View>
+
+        <TouchableOpacity
+          style={styles.reportsButtonView}
+          onPress={() => navigation.navigate('Reports')}
+        >
+          <Text style={styles.reportsText}>View Reports</Text>
+        </TouchableOpacity>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -379,19 +283,29 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 2,
+    // flex: 1,
+    // justifyContent: 'center',
+  },
+  categoryTextView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: rw(8),
   },
   categoryText: {
     flexDirection: 'row',
     marginVertical: rh(8),
-    marginHorizontal: rw(17),
+    marginHorizontal: rw(12),
     fontWeight: 600,
     fontSize: rf(13),
   },
   tagView: {
     flexDirection: 'row',
     marginHorizontal: rw(56),
+    flexWrap: 'wrap',
+    alignItems: 'center',
     marginTop: rh(15),
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     gap: rw(7),
   },
   tagInnerView: {
@@ -410,8 +324,6 @@ const styles = StyleSheet.create({
     marginHorizontal: rw(10),
     fontSize: rf(12),
   },
-  selectedText: {},
-  unSelectedTest: {},
   reportsView: {
     marginTop: rh(19),
     marginHorizontal: rw(24),

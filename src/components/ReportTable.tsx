@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import { images } from '../utils/images';
 import { rf, rh, rw } from '../utils/responsive';
 import moment from 'moment';
@@ -7,6 +14,102 @@ import moment from 'moment';
 const ReportTable = () => {
   const [id, setId] = useState<number>();
   const tableData = [
+    {
+      id: 1,
+      type: 'Positive Findings',
+      risk: 'High',
+      vessel: 'KW05BJP BOB SHIP',
+      imageUri: images.arrow,
+      date: '2024-01-14T04:00:00.719Z',
+    },
+    {
+      id: 2,
+      type: 'Unsafe Act',
+      risk: 'Medium',
+      vessel: 'KW05BJP BOB SHIP',
+      imageUri: images.arrow,
+      date: '2024-01-14T11:01:50.719Z',
+    },
+    {
+      id: 3,
+      type: 'Positive Findings',
+      risk: 'Low',
+      vessel: 'KW05BJP BOB SHIP',
+      imageUri: images.arrow,
+      date: '2024-01-14T11:01:50.719Z',
+    },
+    {
+      id: 1,
+      type: 'Positive Findings',
+      risk: 'High',
+      vessel: 'KW05BJP BOB SHIP',
+      imageUri: images.arrow,
+      date: '2024-01-14T04:00:00.719Z',
+    },
+    {
+      id: 2,
+      type: 'Unsafe Act',
+      risk: 'Medium',
+      vessel: 'KW05BJP BOB SHIP',
+      imageUri: images.arrow,
+      date: '2024-01-14T11:01:50.719Z',
+    },
+    {
+      id: 3,
+      type: 'Positive Findings',
+      risk: 'Low',
+      vessel: 'KW05BJP BOB SHIP',
+      imageUri: images.arrow,
+      date: '2024-01-14T11:01:50.719Z',
+    },
+    {
+      id: 1,
+      type: 'Positive Findings',
+      risk: 'High',
+      vessel: 'KW05BJP BOB SHIP',
+      imageUri: images.arrow,
+      date: '2024-01-14T04:00:00.719Z',
+    },
+    {
+      id: 2,
+      type: 'Unsafe Act',
+      risk: 'Medium',
+      vessel: 'KW05BJP BOB SHIP',
+      imageUri: images.arrow,
+      date: '2024-01-14T11:01:50.719Z',
+    },
+    {
+      id: 3,
+      type: 'Positive Findings',
+      risk: 'Low',
+      vessel: 'KW05BJP BOB SHIP',
+      imageUri: images.arrow,
+      date: '2024-01-14T11:01:50.719Z',
+    },
+    {
+      id: 1,
+      type: 'Positive Findings',
+      risk: 'High',
+      vessel: 'KW05BJP BOB SHIP',
+      imageUri: images.arrow,
+      date: '2024-01-14T04:00:00.719Z',
+    },
+    {
+      id: 2,
+      type: 'Unsafe Act',
+      risk: 'Medium',
+      vessel: 'KW05BJP BOB SHIP',
+      imageUri: images.arrow,
+      date: '2024-01-14T11:01:50.719Z',
+    },
+    {
+      id: 3,
+      type: 'Positive Findings',
+      risk: 'Low',
+      vessel: 'KW05BJP BOB SHIP',
+      imageUri: images.arrow,
+      date: '2024-01-14T11:01:50.719Z',
+    },
     {
       id: 1,
       type: 'Positive Findings',
@@ -44,95 +147,89 @@ const ReportTable = () => {
         <Text style={[styles.headerText, { flex: 0 }]}>Action</Text>
       </View>
 
-      {tableData.map((item, index) => {
-        const image = id === item.id ? images.orangeSave : images.save;
+      <ScrollView>
+        {tableData.map((item, index) => {
+          const image = id === item.id ? images.orangeSave : images.save;
 
-        function bgcolor() {
-          if (item.risk == 'High') {
-            return '#ED1C24';
-          } else if (item.risk == 'Medium') {
-            return '#F08400';
-          } else if (item.risk == 'Low') {
-            return '#3FB475';
+          function bgcolor() {
+            if (item.risk == 'High') {
+              return '#ED1C24';
+            } else if (item.risk == 'Medium') {
+              return '#F08400';
+            } else if (item.risk == 'Low') {
+              return '#3FB475';
+            }
           }
-        }
 
-        return (
-          <View
-            key={item.id}
-            style={[
-              styles.row,
-              index === tableData.length - 1 && styles.lastRow,
-            ]}
-          >
-            <TouchableOpacity
-              style={{ flex: 0.1 }}
-              onPress={() => setId(item.id)}
+          return (
+            <View
+              key={item.id}
+              style={[
+                styles.row,
+                index === tableData.length - 1 && styles.lastRow,
+              ]}
             >
-              <Image source={image} />
-            </TouchableOpacity>
-            <Text style={[styles.cell, { flex: 0.2 }]}>{item.type}</Text>
-            <Text style={[styles.cell, { flex: 0.2, color: '#999999' }]}>
-              {item.vessel}
-            </Text>
-            <View style={{ flex: 0.2 }}>
-              <View
-                style={{
-                  backgroundColor: bgcolor(),
-                  alignSelf: 'center',
-                  borderRadius: rw(5),
-                  padding: rh(3),
-                }}
+              <TouchableOpacity
+                style={{ flex: 0.1 }}
+                onPress={() => setId(item.id)}
               >
-                <Text style={[styles.cell, { color: '#FFFFFF' }]}>
-                  {item.risk}
+                <Image source={image} />
+              </TouchableOpacity>
+              <Text style={[styles.cell, { flex: 0.2 }]}>{item.type}</Text>
+              <Text style={[styles.cell, { flex: 0.2, color: '#999999' }]}>
+                {item.vessel}
+              </Text>
+              <View style={{ flex: 0.2 }}>
+                <View
+                  style={{
+                    backgroundColor: bgcolor(),
+                    alignSelf: 'center',
+                    borderRadius: rw(5),
+                    padding: rh(3),
+                  }}
+                >
+                  <Text style={[styles.cell, { color: '#FFFFFF' }]}>
+                    {item.risk}
+                  </Text>
+                </View>
+              </View>
+
+              <View style={[{ flex: 0.3 }]}>
+                <Text style={[styles.cell]}>
+                  {moment(item.date).format('DD/MM/YYYY')}
+                </Text>
+                <Text
+                  style={[styles.cell, { color: '#999999', fontWeight: 500 }]}
+                >
+                  {moment(item.date).format('h:mma IST')}
                 </Text>
               </View>
-            </View>
-
-            <View style={[{ flex: 0.3 }]}>
-              <Text style={[styles.cell]}>
-                {moment(item.date).format('DD/MM/YYYY')}
-              </Text>
-              <Text style={[styles.cell, { color: '#999999' }]}>
-                {moment(item.date).format('h:mma IST')}
-              </Text>
-            </View>
-            <View style={[styles.imageCell, { flex: 0 }]}>
-              <TouchableOpacity
-                style={{
-                  paddingHorizontal: rw(15),
-                  paddingVertical: rh(13),
-                  backgroundColor: '#DFEBFF',
-                  borderRadius: rw(24),
-                }}
-              >
-                <Image
-                  source={item.imageUri}
+              <View style={[styles.imageCell, { flex: 0 }]}>
+                <TouchableOpacity
                   style={{
-                    width: rw(5),
-                    height: rh(10),
+                    paddingHorizontal: rw(15),
+                    paddingVertical: rh(13),
+                    backgroundColor: '#DFEBFF',
+                    borderRadius: rw(24),
                   }}
-                />
-              </TouchableOpacity>
+                >
+                  <Image
+                    source={item.imageUri}
+                    style={{
+                      width: rw(5),
+                      height: rh(10),
+                    }}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        );
-      })}
-      <TouchableOpacity>
-        <Text
-          style={{
-            marginTop: rh(24),
-            marginBottom: rh(19),
-            textDecorationLine: 'underline',
-            textAlign: 'center',
-            fontSize: rf(14),
-            fontWeight: 700,
-          }}
-        >
-          View More
-        </Text>
-      </TouchableOpacity>
+          );
+        })}
+
+        <TouchableOpacity style={styles.textContainer}>
+          <Text style={styles.textStyle}>View More</Text>
+        </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 };
@@ -151,6 +248,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 2,
+    // flex: 1,
+    maxHeight: '65%',
   },
   row: {
     flexDirection: 'row',
@@ -179,6 +278,19 @@ const styles = StyleSheet.create({
   },
   imageCell: {
     alignItems: 'center',
+  },
+  textContainer: {
+    alignSelf: 'center',
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+    borderColor: '#383838',
+    marginBottom: rh(19),
+    marginTop: rh(24),
+  },
+  textStyle: {
+    textAlign: 'center',
+    fontSize: rf(14),
+    fontWeight: 700,
   },
 });
 

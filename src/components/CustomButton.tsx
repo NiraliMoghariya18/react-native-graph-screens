@@ -10,7 +10,6 @@ import {
   ImageSourcePropType,
   TextStyle,
 } from 'react-native';
-import { images } from '../utils/images';
 import { rf, rh, rw } from '../utils/responsive';
 
 interface Props {
@@ -33,16 +32,23 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    gap: rw(5),
     borderWidth: 1,
     flex: 1,
+    gap: rw(5),
+    paddingVertical: rh(8),
+    paddingHorizontal: rw(12),
   },
-  vectorImage: { width: rw(10), height: rh(6) },
+  vectorImage: {
+    width: rw(10),
+    height: rh(6),
+    marginRight: rw(10),
+  },
   text: {
     fontSize: rf(13),
     fontWeight: 600,
-    marginVertical: rh(8),
+    textAlign: 'center',
+    flex: 1,
+    // marginLeft: rw(10),
   },
 });
 

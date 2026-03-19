@@ -5,13 +5,14 @@ import { rf, rh, rw } from '../utils/responsive';
 import CustomButton from '../components/CustomButton';
 import ReportTable from '../components/ReportTable';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Reports = () => {
-  const b = ['1D', '1W', '1M', '3M', '12M', 'YTD'];
+  const time = ['1D', '1W', '1M', '3M', '12M', 'YTD'];
   const [tag, setTag] = useState('1D');
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.headerView}>
         <Image
           source={images.menu}
@@ -33,7 +34,7 @@ const Reports = () => {
       </TouchableOpacity>
 
       <View style={styles.tagView}>
-        {b.map(i => {
+        {time.map(i => {
           return (
             <TouchableOpacity
               style={[
@@ -137,8 +138,10 @@ const styles = StyleSheet.create({
   tagView: {
     flexDirection: 'row',
     marginHorizontal: rw(56),
-    marginTop: rh(16),
-    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    marginTop: rh(15),
+    justifyContent: 'center',
     gap: rw(7),
   },
   tagInnerView: {
@@ -159,11 +162,12 @@ const styles = StyleSheet.create({
     // fontWeight: 700,
   },
   buttonsView: {
+    // flex: 1,
     marginHorizontal: rw(25),
     marginTop: rh(15),
     flexDirection: 'row',
     gap: rw(7),
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
   },
   customButtonStyle: { borderRadius: rw(8) },
   customButtonTextStyle: { color: '#FFFFFF' },
